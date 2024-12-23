@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.Ee.Api", "Pri.Ee.Api\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pri.EindOpdracht.Blazor", "Pri.EindOpdracht.Blazor\Pri.EindOpdracht.Blazor.csproj", "{C7C62CFA-CBE4-4EAD-9877-F7AE6F777F50}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pri.EindOpdracht.Core", "Pri.EindOpdracht.Core\Pri.EindOpdracht.Core.csproj", "{B92983CE-2370-4F4B-8980-DE6D3A614716}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{008F9471-6646-4203-A12A-5EE0E17B4091}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,17 @@ Global
 		{C7C62CFA-CBE4-4EAD-9877-F7AE6F777F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7C62CFA-CBE4-4EAD-9877-F7AE6F777F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7C62CFA-CBE4-4EAD-9877-F7AE6F777F50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B92983CE-2370-4F4B-8980-DE6D3A614716}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B92983CE-2370-4F4B-8980-DE6D3A614716}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B92983CE-2370-4F4B-8980-DE6D3A614716}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B92983CE-2370-4F4B-8980-DE6D3A614716}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{836A902B-676A-4223-9B08-55EE3C32F11B} = {008F9471-6646-4203-A12A-5EE0E17B4091}
+		{B92983CE-2370-4F4B-8980-DE6D3A614716} = {008F9471-6646-4203-A12A-5EE0E17B4091}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2DEB77C8-CBB1-4BD9-BD5D-B5F3D0DFD4BC}
