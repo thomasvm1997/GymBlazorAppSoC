@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Pri.EindOpdracht.Core.Data;
+
 internal class Program
 {
     private static void Main(string[] args)

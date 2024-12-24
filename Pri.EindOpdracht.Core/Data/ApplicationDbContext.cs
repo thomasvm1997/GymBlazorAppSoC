@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Pri.EindOpdracht.Core.Data.Seeding;
 using Pri.EindOpdracht.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,10 @@ namespace Pri.EindOpdracht.Core.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            Seeder.Seed(modelBuilder);
+        }
     }
 }
