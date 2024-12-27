@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Pri.EindOpdracht.Core.Services.Interfaces
 {
-    public interface IGoalService
+    public interface IGoalService<T>
     {
-        Task<ResultModel<IEnumerable<Goal>>> ListAllAsync();
-        Task<ResultModel<IEnumerable<Goal>>> GetAllByUserIdAsync();
-        Task<ResultModel<Goal>> GetByIdAsync(int goalId);
-        Task<bool> DoesGoalIdExistsAsync(int goalId);
-        Task<ResultModel<WorkoutType>> UpdateAsync(WorkoutType entity);
-        Task<ResultModel<WorkoutType>> AddAsync(WorkoutType entity);
-        Task<ResultModel<WorkoutType>> DeleteAsync(WorkoutType entity);
+        IQueryable<T> GetAll();
+        Task<ResultModel<IEnumerable<T>>> ListAllAsync();
+        Task<ResultModel<IEnumerable<T>>> GetAllByUserIdAsync(string userId);
+        Task<ResultModel<T>> GetByIdAsync(int goalId);
+        Task<ResultModel<T>> UpdateAsync(T entity);
+        Task<ResultModel<T>> AddAsync(T entity);
+        Task<ResultModel<T>> DeleteAsync(T entity);
     }
 }

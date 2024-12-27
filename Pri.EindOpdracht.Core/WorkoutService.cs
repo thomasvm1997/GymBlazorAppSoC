@@ -44,6 +44,7 @@ namespace Pri.EindOpdracht.Core
             {
                 resultModel = new ResultModel<Workout>();
                 resultModel.Errors = new List<string> { "Could not find workout" };
+                return resultModel;
             }
 
             resultModel = new ResultModel<Workout> { Data = workout };
