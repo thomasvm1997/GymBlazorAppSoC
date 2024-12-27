@@ -11,6 +11,7 @@ namespace Pri.EindOpdracht.Core.Services.Interfaces
     public interface IGoalService
     {
         Task<ResultModel<IEnumerable<Goal>>> ListAllAsync();
+        Task<ResultModel<IEnumerable<Goal>>> GetAllByUserIdAsync();
         Task<ResultModel<Goal>> GetByIdAsync(int goalId);
         Task<bool> DoesGoalIdExistsAsync(int goalId);
         Task<ResultModel<WorkoutType>> UpdateAsync(WorkoutType entity);
