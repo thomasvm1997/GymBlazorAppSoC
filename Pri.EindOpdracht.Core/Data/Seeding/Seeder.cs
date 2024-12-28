@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,7 +50,8 @@ namespace Pri.EindOpdracht.Core.Data.Seeding
                 NormalizedUserName = "ADMIN",
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 FirstName = "Admin",
-                LastName = "User"
+                LastName = "User",
+                BirthDate = DateTime.Now
             },
             new ApplicationUser
             {
@@ -61,7 +63,8 @@ namespace Pri.EindOpdracht.Core.Data.Seeding
                 NormalizedUserName = "CUSTOMER1",
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 FirstName = "Customer",
-                LastName = "One"
+                LastName = "One",
+                BirthDate = DateTime.Now
             },
             new ApplicationUser
             {
@@ -73,7 +76,8 @@ namespace Pri.EindOpdracht.Core.Data.Seeding
                 NormalizedUserName = "CUSTOMER2",
                 ConcurrencyStamp = Guid.NewGuid().ToString(),
                 FirstName = "Customer",
-                LastName = "Two"
+                LastName = "Two",
+                BirthDate = DateTime.Now
             }
         };
 

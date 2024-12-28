@@ -12,7 +12,7 @@ using Pri.EindOpdracht.Core.Data;
 namespace Pri.EindOpdracht.Core.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241224150347_InitialMigration")]
+    [Migration("20241228161508_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -197,6 +197,9 @@ namespace Pri.EindOpdracht.Core.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -266,7 +269,8 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ed242992-0a90-4bf0-88ef-ee3dcceb4cb3",
+                            BirthDate = new DateTime(2024, 12, 28, 17, 15, 7, 179, DateTimeKind.Local).AddTicks(4410),
+                            ConcurrencyStamp = "1076089c-eba6-44b3-8ccb-02c34b084bb9",
                             Email = "admin@example.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
@@ -274,9 +278,9 @@ namespace Pri.EindOpdracht.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMYJWZe7eclQN3r/ehikytl1R7pZNLoN4uaMtbJUqlxxyt+X2oFltT+YB3HVqqkHaQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE+6jh2VpPSn0IE0DRaehLHIjdd3KBL3MxSbc88BC8ShoVIEdz1wUR5Tkfjo/V9ZqQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7863e2fc-3b7c-4480-b5e6-8c274848f666",
+                            SecurityStamp = "adfb7368-29aa-4ee5-ab12-2ba9fec091db",
                             TwoFactorEnabled = false,
                             UserName = "admin"
                         },
@@ -284,7 +288,8 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = "2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e466e9bf-10ae-4a8f-b449-e24e07c56f51",
+                            BirthDate = new DateTime(2024, 12, 28, 17, 15, 7, 273, DateTimeKind.Local).AddTicks(2610),
+                            ConcurrencyStamp = "fd331aec-d847-47a2-a0d6-a7dd90d9ee63",
                             Email = "customer1@example.com",
                             EmailConfirmed = false,
                             FirstName = "Customer",
@@ -292,9 +297,9 @@ namespace Pri.EindOpdracht.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER1@EXAMPLE.COM",
                             NormalizedUserName = "CUSTOMER1",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOu37gvod5yUxURqULd0+sevTU72rGEAVK0DZ8gRwrEpcEvDYAtEMJUu9dfh5g9IjQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAH4Tv7jE0xIhSPmAMmkBAghAU/bs2uGlpgeP9DCu2xhcAlbqwLqnPUdaDC0pj3vzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a86c99f9-c2b1-4ce2-a934-d0d1ccf134a5",
+                            SecurityStamp = "e46b8995-19e8-4eee-8446-0998a7b3f76a",
                             TwoFactorEnabled = false,
                             UserName = "customer1"
                         },
@@ -302,7 +307,8 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = "3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "85fa5873-4c16-468e-8b26-5d91280325b6",
+                            BirthDate = new DateTime(2024, 12, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(1400),
+                            ConcurrencyStamp = "64a72fd1-e15c-4d1c-acff-cc6c92a67fcb",
                             Email = "customer2@example.com",
                             EmailConfirmed = false,
                             FirstName = "Customer",
@@ -310,9 +316,9 @@ namespace Pri.EindOpdracht.Core.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "CUSTOMER2@EXAMPLE.COM",
                             NormalizedUserName = "CUSTOMER2",
-                            PasswordHash = "AQAAAAIAAYagAAAAEB3obaEenMSiQfenll/FpIMjdmuF8zzVtd8adCOzFlB24gsMI2uOVG8ezERWqksYfw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIMjn5ji2FkNLnrrnYh6Bxk1gxsNWBeaMnAHT+urBtAzpsAsh4XByVpO4OMWXOEI3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6f47b02-ffcc-4f4f-aaaa-60dc8b3795b0",
+                            SecurityStamp = "7c4e65f6-f4e6-44be-b1b8-85f8c8302b26",
                             TwoFactorEnabled = false,
                             UserName = "customer2"
                         });
@@ -352,7 +358,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 1,
                             Achieved = false,
                             Description = "Run 5 km in 30 minutes",
-                            TargetDate = new DateTime(2025, 1, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6128),
+                            TargetDate = new DateTime(2025, 1, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2576),
                             UserId = "2"
                         },
                         new
@@ -360,7 +366,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 2,
                             Achieved = false,
                             Description = "Lose 5 kg in 2 months",
-                            TargetDate = new DateTime(2025, 2, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6136),
+                            TargetDate = new DateTime(2025, 2, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2584),
                             UserId = "2"
                         },
                         new
@@ -368,7 +374,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 3,
                             Achieved = false,
                             Description = "Do 50 push-ups in one go",
-                            TargetDate = new DateTime(2025, 3, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6139),
+                            TargetDate = new DateTime(2025, 3, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2587),
                             UserId = "2"
                         },
                         new
@@ -376,7 +382,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 4,
                             Achieved = false,
                             Description = "Run 10 km in 60 minutes",
-                            TargetDate = new DateTime(2025, 1, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6141),
+                            TargetDate = new DateTime(2025, 1, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2590),
                             UserId = "3"
                         },
                         new
@@ -384,7 +390,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 5,
                             Achieved = false,
                             Description = "Gain 3 kg of muscle in 3 months",
-                            TargetDate = new DateTime(2025, 3, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6144),
+                            TargetDate = new DateTime(2025, 3, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2593),
                             UserId = "3"
                         },
                         new
@@ -392,7 +398,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                             Id = 6,
                             Achieved = false,
                             Description = "Hold a plank for 5 minutes",
-                            TargetDate = new DateTime(2025, 2, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6147),
+                            TargetDate = new DateTime(2025, 2, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2597),
                             UserId = "3"
                         });
                 });
@@ -433,7 +439,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 1,
                             CaloriesBurned = 250,
-                            Date = new DateTime(2024, 12, 23, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(5995),
+                            Date = new DateTime(2024, 12, 27, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2448),
                             Duration = 30,
                             UserId = "2",
                             WorkoutTypeId = 1
@@ -442,7 +448,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 2,
                             CaloriesBurned = 350,
-                            Date = new DateTime(2024, 12, 22, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6050),
+                            Date = new DateTime(2024, 12, 26, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2468),
                             Duration = 45,
                             UserId = "2",
                             WorkoutTypeId = 2
@@ -451,7 +457,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 3,
                             CaloriesBurned = 100,
-                            Date = new DateTime(2024, 12, 21, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6053),
+                            Date = new DateTime(2024, 12, 25, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2476),
                             Duration = 20,
                             UserId = "2",
                             WorkoutTypeId = 3
@@ -460,7 +466,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 4,
                             CaloriesBurned = 200,
-                            Date = new DateTime(2024, 12, 23, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6056),
+                            Date = new DateTime(2024, 12, 27, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2479),
                             Duration = 25,
                             UserId = "3",
                             WorkoutTypeId = 1
@@ -469,7 +475,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 5,
                             CaloriesBurned = 300,
-                            Date = new DateTime(2024, 12, 22, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6058),
+                            Date = new DateTime(2024, 12, 26, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2482),
                             Duration = 40,
                             UserId = "3",
                             WorkoutTypeId = 2
@@ -478,7 +484,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 6,
                             CaloriesBurned = 80,
-                            Date = new DateTime(2024, 12, 21, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6068),
+                            Date = new DateTime(2024, 12, 25, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2499),
                             Duration = 15,
                             UserId = "3",
                             WorkoutTypeId = 3
@@ -487,7 +493,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 7,
                             CaloriesBurned = 270,
-                            Date = new DateTime(2024, 12, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6071),
+                            Date = new DateTime(2024, 12, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2503),
                             Duration = 35,
                             WorkoutTypeId = 1
                         },
@@ -495,7 +501,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 8,
                             CaloriesBurned = 400,
-                            Date = new DateTime(2024, 12, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6073),
+                            Date = new DateTime(2024, 12, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2506),
                             Duration = 50,
                             WorkoutTypeId = 2
                         },
@@ -503,7 +509,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 9,
                             CaloriesBurned = 120,
-                            Date = new DateTime(2024, 12, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6076),
+                            Date = new DateTime(2024, 12, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2508),
                             Duration = 25,
                             WorkoutTypeId = 3
                         },
@@ -511,7 +517,7 @@ namespace Pri.EindOpdracht.Core.Migrations
                         {
                             Id = 10,
                             CaloriesBurned = 500,
-                            Date = new DateTime(2024, 12, 24, 16, 3, 46, 761, DateTimeKind.Local).AddTicks(6079),
+                            Date = new DateTime(2024, 12, 28, 17, 15, 7, 363, DateTimeKind.Local).AddTicks(2516),
                             Duration = 60,
                             WorkoutTypeId = 1
                         });

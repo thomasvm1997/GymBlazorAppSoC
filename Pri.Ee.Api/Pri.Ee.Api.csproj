@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
@@ -20,11 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Pri.EindOpdracht.Core\Pri.EindOpdracht.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pri.EindOpdracht.Core\Pri.EindOpdracht.Core.csproj" />
+    <Folder Include="Dtos\Goals\" />
+    <Folder Include="Dtos\Workouts\" />
+    <Folder Include="Dtos\WorkoutTypes\" />
   </ItemGroup>
 
 </Project>

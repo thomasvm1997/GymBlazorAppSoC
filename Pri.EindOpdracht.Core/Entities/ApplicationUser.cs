@@ -11,6 +11,7 @@ namespace Pri.EindOpdracht.Core.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public DateTime BirthDate { get; set; }
 
         // Navigation properties for related entities
         public ICollection<Workout> Workouts { get; set; }
