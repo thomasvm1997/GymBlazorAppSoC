@@ -24,10 +24,4 @@
     <ProjectReference Include="..\Pri.EindOpdracht.Core\Pri.EindOpdracht.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dtos\Goals\" />
-    <Folder Include="Dtos\Workouts\" />
-    <Folder Include="Dtos\WorkoutTypes\" />
-  </ItemGroup>
-
 </Project>

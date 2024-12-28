@@ -48,7 +48,7 @@ namespace Pri.EindOpdracht.Core
             return resultModel;
         }
 
-        public async Task<ResultModel<IEnumerable<Goal>>> GetAllByUserIdAsync(string userId)
+        public async Task<ResultModel<IEnumerable<Goal>>> GetGoalsByUserAsync(string userId)
         {
             var resultModel = new ResultModel<IEnumerable<Goal>>();
 

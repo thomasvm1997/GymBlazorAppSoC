@@ -12,7 +12,7 @@ namespace Pri.EindOpdracht.Core.Services.Interfaces
     {
         IQueryable<T> GetAll();
         Task<ResultModel<IEnumerable<T>>> ListAllAsync();
-        Task<ResultModel<IEnumerable<T>>> GetAllByUserIdAsync(string userId);
+        Task<ResultModel<IEnumerable<T>>> GetGoalsByUserAsync(string userId);
         Task<ResultModel<T>> GetByIdAsync(int goalId);
         Task<ResultModel<T>> UpdateAsync(T entity);
         Task<ResultModel<T>> AddAsync(T entity);

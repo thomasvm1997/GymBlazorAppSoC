@@ -21,7 +21,7 @@ namespace Pri.EindOpdracht.Core
         }
         public IQueryable<Workout> GetAll()
         {
-            return _dbContext.Workouts.Include(p => p.WorkoutType);
+            return _dbContext.Workouts.Include(p => p.WorkoutType).Include(p => p.User);
         }
         public async Task<ResultModel<IEnumerable<Workout>>> ListAllAsync()
         {
@@ -38,7 +38,7 @@ namespace Pri.EindOpdracht.Core
         public async Task<ResultModel<Workout>> GetByIdAsync(int workoutId)
         {
             var resultModel = new ResultModel<Workout>();
-            var workout = await _dbContext.Workouts.Include(p => p.WorkoutType).FirstOrDefaultAsync(p => p.Id == workoutId);
+            var workout = await _dbContext.Workouts.Include(p => p.WorkoutType).Include(p => p.User).FirstOrDefaultAsync(p => p.Id == workoutId);
 
             if (workout == null)
             {
@@ -55,16 +55,28 @@ namespace Pri.EindOpdracht.Core
         public async Task<ResultModel<IEnumerable<Workout>>> GetWorkoutsByUserAsync(string userId)
         {
             var resultModel = new ResultModel<IEnumerable<Workout>>();
-            var workouts = await _dbContext.Workouts.Include(p => p.User).Where(p => p.UserId == userId).ToListAsync();
 
-            if (workouts == null)
+            try
             {
-                resultModel = new ResultModel<IEnumerable<Workout>>();
-                resultModel.Errors = new List<string> { "Could not find workout" };
-                return resultModel;
-            }
+                var workouts = await _dbContext.Workouts
+                    .Include(w => w.WorkoutType)
+                    .Include(p => p.User)
+                    .Where(w => w.UserId == userId) 
+                    .ToListAsync();
 
-            resultModel = new ResultModel<IEnumerable<Workout>>{ Data = workouts };
+                if (!workouts.Any())
+                {
+                    resultModel.Errors.Add("No workouts found for the current user.");
+                    return resultModel;
+                }
+
+                resultModel.Data = workouts;
+            }
+            catch (Exception ex)
+            {
+                resultModel.Errors.Add("An error occurred while retrieving workouts.");
+                resultModel.Errors.Add(ex.Message); 
+            }
 
             return resultModel;
         }
