@@ -117,10 +117,10 @@ namespace Pri.EindOpdracht.Core.Data.Seeding
             new Workout { Id = 6, Date = DateTime.Now.AddDays(-3), WorkoutTypeId = 3, Duration = 15, CaloriesBurned = 80, UserId = "3" },
 
             // General workouts
-            new Workout { Id = 7, Date = DateTime.Now, WorkoutTypeId = 1, Duration = 35, CaloriesBurned = 270 },
-            new Workout { Id = 8, Date = DateTime.Now, WorkoutTypeId = 2, Duration = 50, CaloriesBurned = 400 },
-            new Workout { Id = 9, Date = DateTime.Now, WorkoutTypeId = 3, Duration = 25, CaloriesBurned = 120 },
-            new Workout { Id = 10, Date = DateTime.Now, WorkoutTypeId = 1, Duration = 60, CaloriesBurned = 500 }
+            new Workout { Id = 7, Date = DateTime.Now, WorkoutTypeId = 1, Duration = 35, CaloriesBurned = 270, UserId = "2" },
+            new Workout { Id = 8, Date = DateTime.Now, WorkoutTypeId = 2, Duration = 50, CaloriesBurned = 400, UserId = "2" },
+            new Workout { Id = 9, Date = DateTime.Now, WorkoutTypeId = 3, Duration = 25, CaloriesBurned = 120, UserId = "2" },
+            new Workout { Id = 10, Date = DateTime.Now, WorkoutTypeId = 1, Duration = 60, CaloriesBurned = 500, UserId = "2" }
         };
 
         modelBuilder.Entity<Workout>().HasData(workouts);

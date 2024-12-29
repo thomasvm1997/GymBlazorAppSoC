@@ -26,11 +26,21 @@ namespace Pri.EindOpdracht.Core
         public async Task<ResultModel<IEnumerable<Workout>>> ListAllAsync()
         {
             var workouts = await GetAll().ToListAsync();
-
-            var resultModel = new ResultModel<IEnumerable<Workout>>()
+            var resultModel = new ResultModel<IEnumerable<Workout>>();
+            if (workouts != null)
             {
-                Data = workouts
-            };
+                resultModel = new ResultModel<IEnumerable<Workout>>()
+                {
+                    Data = workouts
+                };
+            }
+            else
+            {
+                resultModel = new ResultModel<IEnumerable<Workout>>()
+                {
+                    Errors = new List<string>() { "Could not find workouts" }
+                };
+            }
 
             return resultModel;
         }

@@ -49,8 +49,16 @@ namespace Pri.Ee.Api.Controllers
         [Authorize(Roles = "Admin,Customer")]
         public async Task<IActionResult> Get(int workoutId)
         {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var loggedInUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
 
             var result = await _workoutService.GetByIdAsync(workoutId);
+
+            
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            {                                                                           //van andere customers
+                return Forbid("You are not authorized to retreive workouts from another user.");
+            }
 
             if (result.Success)
             {
@@ -73,6 +81,12 @@ namespace Pri.Ee.Api.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Get(string userId)
         {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (loggedInUserId == null || loggedInUserId != userId)
+            {
+                return Forbid("You are not authorized to retreive workouts from another user.");
+            }
 
             var result = await _workoutService.GetWorkoutsByUserAsync(userId);
 
@@ -94,10 +108,15 @@ namespace Pri.Ee.Api.Controllers
             return BadRequest(result.Errors);
         }
         [HttpPost]
-        [Authorize(Roles = "Admin,Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Add(WorkoutRequestDto workoutDto)
         {
-            
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (loggedInUserId == null || loggedInUserId != workoutDto.UserId)
+            {
+                return Forbid("You are not authorized to add a workout for another user.");
+            }
 
             var workout = new Workout
             {
@@ -113,7 +132,7 @@ namespace Pri.Ee.Api.Controllers
 
             if (resultWorkout.Success)
             {
-                var resultType = await _workoutService.GetByIdAsync(workout.WorkoutTypeId);
+                var resultType = await _typeService.GetByIdAsync(workout.WorkoutTypeId);
 
                 if (resultType.Success)
                 {
