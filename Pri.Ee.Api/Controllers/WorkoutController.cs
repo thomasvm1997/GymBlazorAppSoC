@@ -167,7 +167,7 @@ namespace Pri.Ee.Api.Controllers
 
             if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
             {                                                                           //van andere customers
-                return Unauthorized("You are not authorized to retreive workouts from another user.");
+                return Unauthorized("You are not authorized to update workouts from another user.");
             }
 
             
@@ -204,7 +204,7 @@ namespace Pri.Ee.Api.Controllers
 
             if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
             {                                                                           //van andere customers
-                return Unauthorized("You are not authorized to retreive workouts from another user.");
+                return Unauthorized("You are not authorized to delete workouts from another user.");
             }
 
             

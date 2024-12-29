@@ -82,6 +82,7 @@ namespace Pri.EindOpdracht.Core
 
             _dbContext.Goals.Add(entity);
             await _dbContext.SaveChangesAsync();
+            await _dbContext.Entry(entity).Reference(p => p.User).LoadAsync(); //Met identity moet je dit doen om user in te laden!!!!!!!!!
 
             resultModel = new ResultModel<Goal> { Data = entity };
 

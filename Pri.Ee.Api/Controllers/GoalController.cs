@@ -103,5 +103,109 @@ namespace Pri.Ee.Api.Controllers
 
             return BadRequest(result.Errors);
         }
+        [HttpPost]
+        [Authorize(Roles = "Customer")]
+        public async Task<IActionResult> Add(GoalRequestDto goalDto)
+        {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (loggedInUserId == null || loggedInUserId != goalDto.UserId)
+            {
+                return Unauthorized("You are not authorized to add a workout for another user.");
+            }
+
+            var goal = new Goal
+            {
+                Achieved = goalDto.Achieved,
+                Description = goalDto.Description,
+                TargetDate = goalDto.TargetDate,
+                UserId = goalDto.UserId,
+            };
+
+            var resultGoal = await _goalService.AddAsync(goal);
+
+
+            if (resultGoal.Success)
+            {
+                
+                    var dto = new GoalResponseDto
+                    {
+                        Id = goal.Id,
+                        Achieved = goal.Achieved,
+                        Description = goal.Description,
+                        TargetDate = goal.TargetDate,
+                        UserName = $"{goal.User.FirstName}_{goal.User.LastName}",
+
+                    };
+
+                    return CreatedAtAction(nameof(Get), new { id = goal.Id }, dto);
+                
+            }
+            return BadRequest(resultGoal.Errors);
+        }
+        [HttpPut]
+        [Authorize(Roles = "Customer,Admin")]
+        public async Task<IActionResult> Update(GoalRequestDto goalDto)
+        {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var loggedInUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            var result = await _goalService.GetByIdAsync(goalDto.Id);
+
+
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            {                                                                           //van andere customers
+                return Unauthorized("You are not authorized to update goals from another user.");
+            }
+
+
+
+            if (result.Success == false)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            var existingEntity = result.Data;
+            existingEntity.Achieved = goalDto.Achieved;
+            existingEntity.TargetDate = goalDto.TargetDate;
+            existingEntity.Id = goalDto.Id;
+            existingEntity.UserId = goalDto.UserId;
+            existingEntity.Description = goalDto.Description;
+
+            var updateResult = await _goalService.UpdateAsync(existingEntity);
+
+            if (updateResult.Success)
+            {
+                return Ok($"Product {existingEntity.Id} updated");
+            }
+
+            return BadRequest(result.Errors);
+        }
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Customer")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var loggedInUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            var result = await _goalService.GetByIdAsync(id);
+            var entity = result.Data;
+
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            {                                                                           //van andere customers
+                return Unauthorized("You are not authorized to delete workouts from another user.");
+            }
+
+
+
+            if (result.Success == false)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            var deleteResult = await _goalService.DeleteAsync(entity);
+
+            return Ok($"Product {result.Data.Id} deleted");
+        }
     }
 }

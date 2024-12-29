@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Pri.EindOpdracht.ApiConsumer;
+using System.ComponentModel.DataAnnotations;
 
-namespace Pri.Ee.Api.Dtos.Workouts
+namespace Pri.EindOpdracht.ApiConsumer.Workouts.Models
 {
-    public class WorkoutRequestDto : BaseDto
+    public class WorkoutRequestDtoModel : BaseDtoModel
     {
         [Required]
         public DateTime Date { get; set; }
