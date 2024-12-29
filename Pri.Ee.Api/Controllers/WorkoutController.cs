@@ -57,7 +57,7 @@ namespace Pri.Ee.Api.Controllers
             
             if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
             {                                                                           //van andere customers
-                return Forbid("You are not authorized to retreive workouts from another user.");
+                return Unauthorized("You are not authorized to retreive workouts from another user.");
             }
 
             if (result.Success)
@@ -81,11 +81,13 @@ namespace Pri.Ee.Api.Controllers
         [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Get(string userId)
         {
+            var authHeader = Request.Headers["Authorization"].ToString();
+            Console.WriteLine($"Authorization Header: {authHeader}");
             var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
             if (loggedInUserId == null || loggedInUserId != userId)
             {
-                return Forbid("You are not authorized to retreive workouts from another user.");
+                return Unauthorized("You are not authorized to retreive workouts from another user.");
             }
 
             var result = await _workoutService.GetWorkoutsByUserAsync(userId);
@@ -115,7 +117,7 @@ namespace Pri.Ee.Api.Controllers
 
             if (loggedInUserId == null || loggedInUserId != workoutDto.UserId)
             {
-                return Forbid("You are not authorized to add a workout for another user.");
+                return Unauthorized("You are not authorized to add a workout for another user.");
             }
 
             var workout = new Workout
@@ -152,6 +154,69 @@ namespace Pri.Ee.Api.Controllers
                 return BadRequest(resultType.Errors);
             }
             return BadRequest(resultWorkout.Errors);
+        }
+        [HttpPut]
+        [Authorize(Roles = "Customer,Admin")]
+        public async Task<IActionResult> Update(WorkoutRequestDto workoutDto)
+        {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var loggedInUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            var result = await _workoutService.GetByIdAsync(workoutDto.Id);
+
+
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            {                                                                           //van andere customers
+                return Unauthorized("You are not authorized to retreive workouts from another user.");
+            }
+
+            
+
+            if (result.Success == false)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            var existingEntity = result.Data;
+            existingEntity.Duration = workoutDto.Duration;
+            existingEntity.CaloriesBurned = workoutDto.CaloriesBurned;
+            existingEntity.Id = workoutDto.Id;
+            existingEntity.WorkoutTypeId = workoutDto.WorkoutTypeId;
+
+            var updateResult = await _workoutService.UpdateAsync(existingEntity);
+
+            if (updateResult.Success)
+            {
+                return Ok($"Product {existingEntity.Id} updated");
+            }
+
+            return BadRequest(result.Errors);
+        }
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Customer")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var loggedInUserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var loggedInUserRole = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value;
+
+            var result = await _workoutService.GetByIdAsync(id);
+            var entity = result.Data;
+
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            {                                                                           //van andere customers
+                return Unauthorized("You are not authorized to retreive workouts from another user.");
+            }
+
+            
+
+            if (result.Success == false)
+            {
+                return BadRequest(result.Errors);
+            }
+
+            var deleteResult = await _workoutService.DeleteAsync(entity);
+
+            return Ok($"Product {result.Data.Id} deleted");
         }
     }
 }

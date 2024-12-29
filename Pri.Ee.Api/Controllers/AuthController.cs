@@ -103,7 +103,8 @@ namespace Pri.Ee.Api.Controllers
             {
                 claims.Add(new Claim(ClaimTypes.Role, roleClaim));
             }
-
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id));
+            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
             // Deze kunnen we later nog gebruiken om mss een profile pic toe te voegen
             //claims.Add(new Claim("ProfileImage", new Uri($"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}/img/users/default.jpg").ToString()));
 
