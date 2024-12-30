@@ -18,7 +18,7 @@ namespace Pri.EindOpdracht.ApiConsumer.Goals
         {
             _httpClientFactory = httpClientFactory;
             _workoutApiClient = _httpClientFactory.CreateClient("WorkoutApiClient");
-            _workoutApiClient.BaseAddress = new Uri(ApiRoutes.Auth);
+            _workoutApiClient.BaseAddress = new Uri(ApiRoutes.Goals);
         }
         public async Task<ApiResult> CreateGoalAsync(GoalRequestDtoModel goalToCreate, string token)
         {
