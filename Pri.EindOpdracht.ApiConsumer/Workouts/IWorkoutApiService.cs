@@ -10,11 +10,11 @@ namespace Pri.EindOpdracht.ApiConsumer.Workouts
 {
     public interface IWorkoutApiService
     {
-        Task<WorkoutRequestDtoModel[]> GetWorkoutsAsync(string token);
-        Task<WorkoutRequestDtoModel> GetWorkoutByIdAsync(int id, string token);
-        Task<WorkoutRequestDtoModel[]> GetWorkoutsByUserIdAsync(string userId, string token);
-        Task CreateWorkoutAsync(WorkoutRequestDtoModel workoutToCreate, string token);
-        Task UpdateWorkoutAsync(WorkoutRequestDtoModel WorkoutToDelete, string token);
-        Task DeleteWorkoutAsync(int id, string token);
+        Task<WorkoutResponseDtoModel[]> GetWorkoutsAsync(string token);
+        Task<WorkoutResponseDtoModel> GetWorkoutByIdAsync(int id, string token);
+        Task<WorkoutResponseDtoModel[]> GetWorkoutsByUserIdAsync(string userId, string token);
+        Task<ApiResult> CreateWorkoutAsync(WorkoutRequestDtoModel workoutToCreate, string token);
+        Task<ApiResult> UpdateWorkoutAsync(WorkoutRequestDtoModel WorkoutToDelete, string token);
+        Task<ApiResult> DeleteWorkoutAsync(int id, string token);
     }
 }

@@ -12,8 +12,8 @@ namespace Pri.EindOpdracht.ApiConsumer.Goals
         Task<GoalResponseDtoModel[]> GetGoalsAsync(string token);
         Task<GoalResponseDtoModel> GetGoalByIdAsync(int id, string token);
         Task<GoalResponseDtoModel[]> GetGoalsByUserIdAsync(string userId, string token);
-        Task CreateGoalAsync(GoalRequestDtoModel goalToCreate, string token);
-        Task UpdateGoalAsync(GoalRequestDtoModel goalToUpdate, string token);
-        Task DeleteGoalAsync(int id, string token);
+        Task<ApiResult> CreateGoalAsync(GoalRequestDtoModel goalToCreate, string token);
+        Task<ApiResult> UpdateGoalAsync(GoalRequestDtoModel goalToUpdate, string token);
+        Task<ApiResult> DeleteGoalAsync(int id, string token);
     }
 }

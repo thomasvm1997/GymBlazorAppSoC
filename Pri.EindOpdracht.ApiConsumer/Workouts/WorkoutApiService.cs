@@ -1,7 +1,10 @@
-﻿using Pri.EindOpdracht.ApiConsumer.Workouts.Models;
+﻿using Pri.EindOpdracht.ApiConsumer.Goals.Models;
+using Pri.EindOpdracht.ApiConsumer.Workouts.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,34 +20,80 @@ namespace Pri.EindOpdracht.ApiConsumer.Workouts
             _workoutApiClient = _httpClientFactory.CreateClient("WorkoutApiClient");
             _workoutApiClient.BaseAddress = new Uri(ApiRoutes.Workouts);
         }
-        public Task CreateWorkoutAsync(WorkoutRequestDtoModel workoutToCreate, string token)
+
+        public async Task<ApiResult> CreateWorkoutAsync(WorkoutRequestDtoModel workoutToCreate, string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _workoutApiClient.PostAsJsonAsync("", workoutToCreate);
+
+            if (response.IsSuccessStatusCode == false)
+            {
+                return new ApiResult { Success = false, ErrorMessage = "Could not create object" };
+            }
+
+            return new ApiResult { Success = true };
         }
 
-        public Task DeleteWorkoutAsync(int id, string token)
+        public async Task<ApiResult> DeleteWorkoutAsync(int id, string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _workoutApiClient.DeleteAsync($"{id}");
+
+            if (response.IsSuccessStatusCode == false)
+            {
+                return new ApiResult { Success = false, ErrorMessage = "Could not delete object" };
+            }
+
+            return new ApiResult { Success = true };
         }
 
-        public Task<WorkoutRequestDtoModel> GetWorkoutByIdAsync(int id, string token)
+        public async Task<WorkoutResponseDtoModel> GetWorkoutByIdAsync(int id, string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var product = await _workoutApiClient.GetFromJsonAsync<WorkoutResponseDtoModel>($"{id}");
+            return product;
         }
 
-        public Task<WorkoutRequestDtoModel[]> GetWorkoutsAsync(string token)
+        public async Task<WorkoutResponseDtoModel[]> GetWorkoutsAsync(string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var products = await _workoutApiClient.GetFromJsonAsync<WorkoutResponseDtoModel[]>("");
+
+            if (products is not null)
+            {
+                return products;
+            }
+
+            return Array.Empty<WorkoutResponseDtoModel>();
         }
 
-        public Task<WorkoutRequestDtoModel[]> GetWorkoutsByUserIdAsync(string userId, string token)
+        public async Task<WorkoutResponseDtoModel[]> GetWorkoutsByUserIdAsync(string userId, string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            var products = await _workoutApiClient.GetFromJsonAsync<WorkoutResponseDtoModel[]>($"/user/{userId}");
+
+            if (products is not null)
+            {
+                return products;
+            }
+
+            return Array.Empty<WorkoutResponseDtoModel>();
         }
 
-        public Task UpdateWorkoutAsync(WorkoutRequestDtoModel WorkoutToDelete, string token)
+        public async Task<ApiResult> UpdateWorkoutAsync(WorkoutRequestDtoModel WorkoutToDelete, string token)
         {
-            throw new NotImplementedException();
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _workoutApiClient.PostAsJsonAsync("", WorkoutToDelete);
+
+            if (response.IsSuccessStatusCode == false)
+            {
+                return new ApiResult { Success = false, ErrorMessage = "Could not update object" };
+            }
+
+            return new ApiResult { Success = true };
         }
     }
 }
