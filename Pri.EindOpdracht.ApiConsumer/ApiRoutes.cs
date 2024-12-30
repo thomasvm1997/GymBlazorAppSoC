@@ -3,8 +3,8 @@
     public static class ApiRoutes
     {
         public const string Base = "https://1h88g3b4-7190.euw.devtunnels.ms/api";
-        public const string Goals = Base + "/goal";
-        public const string Workouts = Base + "/workout";
+        public const string Goals = Base + "/goal/";
+        public const string Workouts = Base + "/workout/";
         public const string WorkoutTypes = Base + "/type";
         public const string Auth = Base + "/Auth/";
     }

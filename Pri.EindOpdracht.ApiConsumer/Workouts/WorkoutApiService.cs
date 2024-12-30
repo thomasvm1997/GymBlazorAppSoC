@@ -72,7 +72,7 @@ namespace Pri.EindOpdracht.ApiConsumer.Workouts
         public async Task<WorkoutResponseDtoModel[]> GetWorkoutsByUserIdAsync(string userId, string token)
         {
             _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var products = await _workoutApiClient.GetFromJsonAsync<WorkoutResponseDtoModel[]>($"/user/{userId}");
+            var products = await _workoutApiClient.GetFromJsonAsync<WorkoutResponseDtoModel[]>($"user/{userId}");
 
             if (products is not null)
             {

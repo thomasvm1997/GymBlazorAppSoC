@@ -1,0 +1,39 @@
+﻿<EditForm Model="RegisterModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <label>Username:</label>
+        <InputText @bind-Value="RegisterModel.Username" class="form-control" />
+    </div>
+    <div>
+        <label>First Name:</label>
+        <InputText @bind-Value="RegisterModel.FirstName" class="form-control" />
+    </div>
+    <div>
+        <label>Last Name:</label>
+        <InputText @bind-Value="RegisterModel.LastName" class="form-control" />
+    </div>
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="RegisterModel.Email" type="email" class="form-control" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <InputText @bind-Value="RegisterModel.Password" type="password" class="form-control" />
+    </div>
+    <div>
+        <label>Birth Date:</label>
+        <InputDate @bind-Value="RegisterModel.BirthDate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Register</button>
+</EditForm>
+
+@code {
+    [Parameter] public RegisterUserRequestDtoModel RegisterModel { get; set; }
+    [Parameter] public EventCallback OnSubmit { get; set; }
+
+    private async Task HandleSubmit()
+    {
+        await OnSubmit.InvokeAsync();
+    }
+}

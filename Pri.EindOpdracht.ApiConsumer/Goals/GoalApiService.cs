@@ -71,7 +71,7 @@ namespace Pri.EindOpdracht.ApiConsumer.Goals
         public async Task<GoalResponseDtoModel[]> GetGoalsByUserIdAsync(string userId, string token)
         {
             _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var products = await _workoutApiClient.GetFromJsonAsync<GoalResponseDtoModel[]>($"/user/{userId}");
+            var products = await _workoutApiClient.GetFromJsonAsync<GoalResponseDtoModel[]>($"user/{userId}");
 
             if (products is not null)
             {

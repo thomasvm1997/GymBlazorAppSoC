@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.EindOpdracht.Core", "Pr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{008F9471-6646-4203-A12A-5EE0E17B4091}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pri.EindOpdracht.ApiConsumer", "Pri.EindOpdracht.ApiConsumer\Pri.EindOpdracht.ApiConsumer.csproj", "{7FD9654A-619F-4473-9562-249798DF5D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pri.EindOpdracht.ApiConsumer", "Pri.EindOpdracht.ApiConsumer\Pri.EindOpdracht.ApiConsumer.csproj", "{7FD9654A-619F-4473-9562-249798DF5D8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
