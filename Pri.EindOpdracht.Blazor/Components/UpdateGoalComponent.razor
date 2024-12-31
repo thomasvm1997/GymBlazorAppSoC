@@ -1,0 +1,46 @@
+﻿<div class="card">
+    <div class="card-header">Update Goal</div>
+    <div class="card-body">
+        <EditForm Model="Model" OnValidSubmit="HandleUpdate">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3">
+                <label for="Achieved" class="form-label">Achieved</label>
+                <InputCheckbox id="Achieved" class="form-check-input" @bind-Value="Model.Achieved" />
+                <ValidationMessage For="@(() => Model.Achieved)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <InputTextArea id="Description" class="form-control" @bind-Value="Model.Description" />
+                <ValidationMessage For="@(() => Model.Description)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="TargetDate" class="form-label">Target Date</label>
+                <InputDate id="TargetDate" class="form-control" @bind-Value="Model.TargetDate" />
+                <ValidationMessage For="@(() => Model.TargetDate)" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary" @onclick="HandleCancel">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter] public GoalRequestDtoModel Model { get; set; }
+    [Parameter] public EventCallback OnUpdate { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private async Task HandleUpdate()
+    {
+        await OnUpdate.InvokeAsync();
+    }
+    private async Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+    }
+}

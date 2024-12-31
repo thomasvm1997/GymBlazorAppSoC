@@ -86,7 +86,7 @@ namespace Pri.EindOpdracht.ApiConsumer.Workouts
         {
             _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _workoutApiClient.PostAsJsonAsync("", WorkoutToDelete);
+            var response = await _workoutApiClient.PutAsJsonAsync("", WorkoutToDelete);
 
             if (response.IsSuccessStatusCode == false)
             {

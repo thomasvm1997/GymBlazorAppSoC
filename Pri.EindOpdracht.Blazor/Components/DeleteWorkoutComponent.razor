@@ -1,0 +1,26 @@
+﻿<h3>DeleteGoalComponent</h3>
+<div class="card">
+    <div class="card-header">Confirm Deletion</div>
+    <div class="card-body">
+        <p>Are you sure you want to delete the route <strong>This Workout</strong>?</p>
+        <button class="btn btn-danger" @onclick="HandleDelete">Delete</button>
+        <button class="btn btn-secondary" @onclick="HandleCancel">Cancel</button>
+    </div>
+</div>
+
+
+@code {
+    [Parameter] public WorkoutRequestDtoModel Model { get; set; }
+    [Parameter] public EventCallback OnDelete { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+
+    private async Task HandleDelete()
+    {
+        await OnDelete.InvokeAsync();
+    }
+    private async Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+    }
+}

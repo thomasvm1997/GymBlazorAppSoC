@@ -85,7 +85,7 @@ namespace Pri.EindOpdracht.ApiConsumer.Goals
         {
             _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _workoutApiClient.PostAsJsonAsync("", goalToUpdate);
+            var response = await _workoutApiClient.PutAsJsonAsync("", goalToUpdate);
 
             if (response.IsSuccessStatusCode == false)
             {

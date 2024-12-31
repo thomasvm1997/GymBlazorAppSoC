@@ -19,6 +19,7 @@ namespace Pri.Ee.Api.Controllers
         {
             _workoutService = workoutService;
             _typeService = typeService;
+
         }
 
         [HttpGet]
