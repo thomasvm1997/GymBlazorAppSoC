@@ -28,8 +28,8 @@
 
 @code {
     [Parameter] public GoalResponseDtoModel Model { get; set; }
-    [Parameter] public string UserId { get; set; }
-    [Parameter] public string UserRole { get; set; }
+    [Parameter] public string LoggedInUserId { get; set; }
+    [Parameter] public string LoggedInUserRole { get; set; }
     public GoalRequestDtoModel GoalUpdate { get; set; }
     private bool isUpdateVisible = false;
     private bool isDeleteVisible = false;
@@ -45,7 +45,7 @@
             Achieved = Model.Achieved,
             Description = Model.Description,
             TargetDate = Model.TargetDate,
-           
+            UserId = Model.UserId
         };
 
     }

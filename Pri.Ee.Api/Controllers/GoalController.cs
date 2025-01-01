@@ -32,7 +32,8 @@ namespace Pri.Ee.Api.Controllers
                     Achieved = c.Achieved,
                     Description = c.Description,
                     TargetDate = c.TargetDate,
-                    UserName = $"{c.User.FirstName}_{c.User.LastName}"
+                    UserName = $"{c.User.FirstName}_{c.User.LastName}",
+                    UserId = c.UserId,
                 });
 
                 return Ok(goalDto);
@@ -65,7 +66,7 @@ namespace Pri.Ee.Api.Controllers
                     Description = result.Data.Description,
                     TargetDate  = result.Data.TargetDate,
                     UserName = $"{result.Data.User.FirstName}_{result.Data.User.LastName}",
-
+                    UserId = result.Data.UserId
                 };
 
                 return Ok(goalDto);
@@ -96,6 +97,7 @@ namespace Pri.Ee.Api.Controllers
                     Description = c.Description ,
                     TargetDate = c.TargetDate,
                     UserName = $"{c.User.FirstName}_{c.User.LastName}",
+                    UserId = c.UserId
                 });
 
                 return Ok(goalDto);
@@ -135,7 +137,7 @@ namespace Pri.Ee.Api.Controllers
                         Description = goal.Description,
                         TargetDate = goal.TargetDate,
                         UserName = $"{goal.User.FirstName}_{goal.User.LastName}",
-
+                        UserId= goal.UserId
                     };
 
                     return CreatedAtAction(nameof(Get), new { id = goal.Id }, dto);

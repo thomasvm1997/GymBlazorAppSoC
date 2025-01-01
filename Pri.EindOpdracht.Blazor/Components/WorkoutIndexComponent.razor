@@ -28,8 +28,8 @@
 }
 @code {
     [Parameter] public WorkoutResponseDtoModel Model { get; set; }
-    [Parameter] public string UserId { get; set; }
-    [Parameter] public string UserRole { get; set; }
+    [Parameter] public string LoggedInUserId { get; set; }
+    [Parameter] public string LoggedInUserRole { get; set; }
     public WorkoutTypeResponseDtoModel[] Types { get; set; }
     public WorkoutRequestDtoModel WorkoutUpdate { get; set; }
     private bool isUpdateVisible = false;
@@ -47,7 +47,7 @@
             CaloriesBurned = Model.CaloriesBurned,
             Date = Model.Date,
             Duration = Model.Duration,
-            
+            UserId = Model.UserId,
             WorkoutTypeId = typeId
 
         };

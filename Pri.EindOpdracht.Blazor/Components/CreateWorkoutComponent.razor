@@ -1,7 +1,7 @@
 ﻿<div class="card">
-    <div class="card-header">Update Goal</div>
+    <div class="card-header">Create Workout</div>
     <div class="card-body">
-        <EditForm Model="Model" OnValidSubmit="HandleUpdate">
+        <EditForm Model="Model" OnValidSubmit="HandleCreate">
             <DataAnnotationsValidator />
             <div class="mb-3">
                 <label for="Duration" class="form-label">Duration</label>
@@ -16,7 +16,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="TargetDate" class="form-label">Date</label>
+                <label for="TargetDate" class="form-label">Diffculty</label>
                 <InputDate id="TargetDate" class="form-control" @bind-Value="Model.Date" />
                 <ValidationMessage For="@(() => Model.Date)" />
             </div>
@@ -46,12 +46,12 @@
 @code {
     [Parameter] public WorkoutRequestDtoModel Model { get; set; }
     [Parameter] public WorkoutTypeResponseDtoModel[] Types { get; set; }
-    [Parameter] public EventCallback OnUpdate { get; set; }
+    [Parameter] public EventCallback OnCreate { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
 
-    private async Task HandleUpdate()
+    private async Task HandleCreate()
     {
-        await OnUpdate.InvokeAsync();
+        await OnCreate.InvokeAsync();
     }
     private async Task HandleCancel()
     {

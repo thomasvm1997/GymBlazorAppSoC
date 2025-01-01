@@ -37,7 +37,9 @@ namespace Pri.Ee.Api.Controllers
                     Date = c.Date,
                     Duration = c.Duration,
                     WorkoutTypeName = c.WorkoutType.Name,
-                    UserName = $"{c.User.FirstName}_{c.User.LastName}"
+                    UserName = $"{c.User.FirstName}_{c.User.LastName}",
+                    UserId = c.UserId,
+                    
                 });
 
                 return Ok(workoutsDto);
@@ -71,6 +73,7 @@ namespace Pri.Ee.Api.Controllers
                     WorkoutTypeName = result.Data.WorkoutType.Name,
                     UserName = $"{result.Data.User.FirstName}_{result.Data.User.LastName}",
                     CaloriesBurned = result.Data.CaloriesBurned,
+                    UserId = result.Data.UserId
                 };
 
                 return Ok(workoutDto);
@@ -102,7 +105,9 @@ namespace Pri.Ee.Api.Controllers
                     Date = c.Date,
                     Duration = c.Duration,
                     WorkoutTypeName = c.WorkoutType.Name,
-                    UserName = $"{c.User.FirstName}_{c.User.LastName}"
+                    UserName = $"{c.User.FirstName}_{c.User.LastName}",
+                    UserId = c.UserId
+                    
                 });
 
                 return Ok(workoutsDto);
@@ -147,7 +152,7 @@ namespace Pri.Ee.Api.Controllers
                         Duration = workout.Duration,
                         UserName = $"{workout.User.FirstName}_{workout.User.LastName}",
                         WorkoutTypeName = workout.WorkoutType.Name,
-                        
+                        UserId = workout.UserId
                     };
 
                     return CreatedAtAction(nameof(Get), new { id = workout.Id }, dto);
@@ -183,6 +188,7 @@ namespace Pri.Ee.Api.Controllers
             existingEntity.CaloriesBurned = workoutDto.CaloriesBurned;
             existingEntity.Id = workoutDto.Id;
             existingEntity.WorkoutTypeId = workoutDto.WorkoutTypeId;
+            existingEntity.UserId = workoutDto.UserId;
 
             var updateResult = await _workoutService.UpdateAsync(existingEntity);
 

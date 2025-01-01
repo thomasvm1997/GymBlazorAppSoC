@@ -38,10 +38,15 @@ else
             @if (Workouts != null && isWorkoutsVisible == true)
             {
                 <h4>Your Workouts</h4>
+                <button class="btn btn-secondary" @onclick="ShowWorkoutCreate">Create Workout</button>
+                if (IsWorkoutCreateVisible == true)
+                {
+                    <CreateWorkoutComponent Model="@CreateWorkoutModel" Types="@Types" OnCreate="CreateWorkout" OnCancel="HideWorkoutCreate" />
+                }
                 <div class="row">
                     @foreach (var workout in Workouts)
                     {
-                        <WorkoutIndexComponent Model="workout"/>
+                        <WorkoutIndexComponent Model="workout" LoggedInUserId="@UserId" LoggedInUserRole="@UserRole" />
                     }
                 </div>
             }
@@ -49,10 +54,15 @@ else
             @if (Goals != null && isGoalsVisible == true)
             {
                 <h4>Your Goals</h4>
+                <button class="btn btn-secondary" @onclick="ShowGoalCreate">Create Goal</button>
+                if (IsGoalCreateVisible == true)
+                {
+                    <CreateGoalComponent Model="@CreateGoalModel" OnCreate="CreateGoal" OnCancel="HideGoalCreate" />
+                }
                 <div class="row">
                     @foreach (var goal in Goals)
                     {
-                        <GoalIndexComponent Model="goal" UserId="@UserId" UserRole="@UserRole" />
+                        <GoalIndexComponent Model="goal" LoggedInUserId="@UserId" LoggedInUserRole="@UserRole" />
                     }
                 </div>
             }
@@ -71,7 +81,7 @@ else
             <div class="row">
                 @foreach (var workout in Workouts)
                 {
-                    <WorkoutIndexComponent Model="workout" />
+                    <WorkoutIndexComponent Model="workout" LoggedInUserId="@UserId" LoggedInUserRole="@UserRole" />
                 }
             </div>
         }
@@ -81,140 +91,228 @@ else
             <div class="row">
                 @foreach (var goal in Goals)
                 {
-                    <GoalIndexComponent Model="goal" UserId="@UserId" UserRole="@UserRole" />
+                    <GoalIndexComponent Model="goal" LoggedInUserId="@UserId" LoggedInUserRole="@UserRole" />
                 }
             </div>
         }
         @if (Types != null && isTypesVisible)
         {
             <h4>All Workout types</h4>
+            <button class="btn btn-secondary" @onclick="ShowTypeCreate">Create Type</button>
+            if (IsTypeCreateVisible == true)
+            {
+                <CreateTypeComponent Model="@CreateTypeModel" OnCreate="CreateType" OnCancel="HideTypeCreate" />
+            }
             <div class="row">
-                
-                    @foreach (var type in Types)
-                    {
-                        <TypeIndexComponent Model="type" />
-                    }
-                </div>
-         }
+
+                @foreach (var type in Types)
+                {
+                    <TypeIndexComponent Model="type" />
+                }
+            </div>
+        }
     }
 }
 
-                @code{
-                    private bool isUserLoggedIn;
-                    private bool isRegisterSucces = false;
-                    public LoginUserRequestDtoModel LoginModel { get; set; } = new LoginUserRequestDtoModel();
-                    public RegisterUserRequestDtoModel RegisterModel { get; set; } = new RegisterUserRequestDtoModel();
-                    public WorkoutResponseDtoModel[] Workouts { get; set; }
-                    public GoalResponseDtoModel[] Goals { get; set; }
-                    public WorkoutTypeResponseDtoModel[] Types { get; set; }
-                    public string UserRole { get; set; } = "";
-                    public string UserId { get; set; } = "";
-                    private bool isWorkoutsVisible;
-                    private bool isGoalsVisible;
-                    private bool isTypesVisible;
+@code{
+    private bool isUserLoggedIn;
+    private bool isRegisterSucces = false;
+    public LoginUserRequestDtoModel LoginModel { get; set; } = new LoginUserRequestDtoModel();
+    public RegisterUserRequestDtoModel RegisterModel { get; set; } = new RegisterUserRequestDtoModel();
+    public WorkoutResponseDtoModel[] Workouts { get; set; }
+    public GoalResponseDtoModel[] Goals { get; set; }
+    public WorkoutTypeResponseDtoModel[] Types { get; set; }
+    public WorkoutRequestDtoModel CreateWorkoutModel { get; set; }
+    public GoalRequestDtoModel CreateGoalModel { get; set; }
+    public WorkoutTypeRequestDtoModel CreateTypeModel { get; set; }
+    public string UserRole { get; set; } = "";
+    public string UserId { get; set; } = "";
+    private bool isWorkoutsVisible;
+    private bool isGoalsVisible;
+    private bool isTypesVisible;
+    private bool IsWorkoutCreateVisible;
+    private bool IsGoalCreateVisible;
+    private bool IsTypeCreateVisible;
 
 
-                    protected override async Task OnInitializedAsync()
-                    {
-                        isUserLoggedIn = false;
+    protected override async Task OnInitializedAsync()
+    {
+        isUserLoggedIn = false;
 
-                    }
+    }
 
-                    private async Task HandleLogin()
-                    {
-                        try
-                        {
-                            var result = await _userService.LoginAsync(LoginModel);
-                            await _LocalStorageService.SetItemAsync("jwtToken", result.Token);
-                            var user = await _jwtService.GetAuthenticationStateAsync();
+    private async Task HandleLogin()
+    {
+        try
+        {
+            var result = await _userService.LoginAsync(LoginModel);
+            await _LocalStorageService.SetItemAsync("jwtToken", result.Token);
+            var user = await _jwtService.GetAuthenticationStateAsync();
 
-                            UserRole = user.User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
-                            UserId = user.User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-                            isUserLoggedIn = true;
-                        }
-                        catch (Exception ex)
-                        {
+            UserRole = user.User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.Role)?.Value;
+            UserId = user.User.Claims.FirstOrDefault(p => p.Type == System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            isUserLoggedIn = true;
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            Types = await _workoutTypeService.GetWorkoutTypesAsync(token);
 
-                            Console.WriteLine($"Login failed: {ex.Message}");
-                        }
-                    }
+            CreateWorkoutModel = new WorkoutRequestDtoModel { UserId = UserId };
+            CreateGoalModel = new GoalRequestDtoModel { UserId = UserId };
+            CreateTypeModel = new WorkoutTypeRequestDtoModel();
+        }
+        catch (Exception ex)
+        {
 
-                    private async Task HandleRegister()
-                    {
-                        try
-                        {
-                            var result = await _userService.RegisterAsync(RegisterModel);
-                            isRegisterSucces = result.Success;
-                        }
-                        catch (Exception ex)
-                        {
-                            isRegisterSucces = false;
-                            Console.WriteLine($"Registration failed: {ex.Message}");
-                        }
-                    }
-                    private async Task FetchWorkouts()
-                    {
-                        try
-                        {
-                            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
-                            if (UserRole == "Customer")
-                            {
+            Console.WriteLine($"Login failed: {ex.Message}");
+        }
+    }
 
-                                Workouts = await _workoutService.GetWorkoutsByUserIdAsync(UserId, token);
-                            }
-                            else if (UserRole == "Admin")
-                            {
-                                Workouts = await _workoutService.GetWorkoutsAsync(token);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Error fetching workouts: {ex.Message}");
-                        }
-                        StateHasChanged();
-                        isWorkoutsVisible = true;
-                        isTypesVisible = false;
-                        isGoalsVisible = false;
+    private async Task HandleRegister()
+    {
+        try
+        {
+            var result = await _userService.RegisterAsync(RegisterModel);
+            isRegisterSucces = result.Success;
+        }
+        catch (Exception ex)
+        {
+            isRegisterSucces = false;
+            Console.WriteLine($"Registration failed: {ex.Message}");
+        }
+    }
+    private async Task FetchWorkouts()
+    {
+        try
+        {
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            if (UserRole == "Customer")
+            {
 
-                    }
+                Workouts = await _workoutService.GetWorkoutsByUserIdAsync(UserId, token);
+            }
+            else if (UserRole == "Admin")
+            {
+                Workouts = await _workoutService.GetWorkoutsAsync(token);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching workouts: {ex.Message}");
+        }
+        StateHasChanged();
+        isWorkoutsVisible = true;
+        isTypesVisible = false;
+        isGoalsVisible = false;
 
-                    private async Task FetchGoals()
-                    {
-                        try
-                        {
-                            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
-                            if (UserRole == "Customer")
-                            {
-                                Goals = await _goalService.GetGoalsByUserIdAsync(UserId, token);
-                            }
-                            else if (UserRole == "Admin")
-                            {
-                                Goals = await _goalService.GetGoalsAsync(token);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Error fetching goals: {ex.Message}");
-                        }
-                        StateHasChanged();
-                        isWorkoutsVisible = false;
-                        isTypesVisible = false;
-                        isGoalsVisible = true;
-                    }
-                    private async Task FetchTypes()
-                    {
-                        try
-                        {
-                            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
-                            Types = await _workoutTypeService.GetWorkoutTypesAsync(token);
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine($"Error fetching goals: {ex.Message}");
-                        }
-                        StateHasChanged();
-                        isWorkoutsVisible = false;
-                        isTypesVisible = true;
-                        isGoalsVisible = false;
-                    }
-                }
+    }
+
+    private async Task FetchGoals()
+    {
+        try
+        {
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            if (UserRole == "Customer")
+            {
+                Goals = await _goalService.GetGoalsByUserIdAsync(UserId, token);
+            }
+            else if (UserRole == "Admin")
+            {
+                Goals = await _goalService.GetGoalsAsync(token);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching goals: {ex.Message}");
+        }
+        StateHasChanged();
+        isWorkoutsVisible = false;
+        isTypesVisible = false;
+        isGoalsVisible = true;
+    }
+    private async Task FetchTypes()
+    {
+        try
+        {
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            Types = await _workoutTypeService.GetWorkoutTypesAsync(token);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching goals: {ex.Message}");
+        }
+        StateHasChanged();
+        isWorkoutsVisible = false;
+        isTypesVisible = true;
+        isGoalsVisible = false;
+    }
+    private async Task ShowWorkoutCreate()
+    {
+        IsWorkoutCreateVisible = true;
+    }
+    private async Task HideWorkoutCreate()
+    {
+        IsWorkoutCreateVisible = false;
+    }
+    private async Task CreateWorkout()
+    {
+        try
+        {
+
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            await _workoutService.CreateWorkoutAsync(CreateWorkoutModel, token);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating workout: {ex.Message}");
+        }
+        HideWorkoutCreate();
+        StateHasChanged();
+    }
+    private async Task ShowGoalCreate()
+    {
+        IsGoalCreateVisible = true;
+    }
+    private async Task HideGoalCreate()
+    {
+        IsGoalCreateVisible = false;
+    }
+    private async Task CreateGoal()
+    {
+        try
+        {
+
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            await _goalService.CreateGoalAsync(CreateGoalModel, token);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating workout: {ex.Message}");
+        }
+        HideGoalCreate();
+        StateHasChanged();
+    }
+    private async Task ShowTypeCreate()
+    {
+        IsTypeCreateVisible = true;
+    }
+    private async Task HideTypeCreate()
+    {
+        IsTypeCreateVisible = false;
+    }
+    private async Task CreateType()
+    {
+        try
+        {
+
+            var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
+            await _workoutTypeService.CreateWorkoutTypeAsync(CreateTypeModel, token);
+
+            Types = await _workoutTypeService.GetWorkoutTypesAsync(token);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error creating workout: {ex.Message}");
+        }
+        HideTypeCreate();
+        StateHasChanged();
+    }
+}
