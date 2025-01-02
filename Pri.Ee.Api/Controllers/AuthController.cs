@@ -53,6 +53,7 @@ namespace Pri.Ee.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterUserRequestDto registerDto)
         {
+            var passwordHasher = new PasswordHasher<ApplicationUser>();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -11,14 +11,29 @@
 @if (isUserLoggedIn == false)
 {
     <div>
-        <h3>Login</h3>
-        <LoginComponent LoginModel="LoginModel" OnSubmit="HandleLogin" />
-
-        @if (isRegisterSucces == false)
+        <h1 style="text-align:center">Workout App</h1>
+        @if (counterLogin == 0)
         {
-            <h3>Register</h3>
+
+            <LoginComponent LoginModel="LoginModel" OnSubmit="HandleLogin" />
+        }
+        else if (counterLogin != 0)
+        {
+            <h4 style="color:red">Failed</h4>
+            <LoginComponent LoginModel="LoginModel" OnSubmit="HandleLogin" />
+        }
+        @if (isRegisterSucces == false && counterRegister == 0)
+        {
+
             <RegisterComponent RegisterModel="RegisterModel" OnSubmit="HandleRegister" />
-            <h4>Failed</h4>
+
+        }
+        else if (isRegisterSucces == false && counterRegister != 0)
+        {
+
+            <h4 style="color:red">Failed</h4>
+            <RegisterComponent RegisterModel="RegisterModel" OnSubmit="HandleRegister" />
+
         }
         else if (isRegisterSucces == true)
         {
@@ -115,8 +130,7 @@ else
 }
 
 @code{
-    private bool isUserLoggedIn;
-    private bool isRegisterSucces = false;
+
     public LoginUserRequestDtoModel LoginModel { get; set; } = new LoginUserRequestDtoModel();
     public RegisterUserRequestDtoModel RegisterModel { get; set; } = new RegisterUserRequestDtoModel();
     public WorkoutResponseDtoModel[] Workouts { get; set; }
@@ -124,7 +138,7 @@ else
     public WorkoutTypeResponseDtoModel[] Types { get; set; }
     public WorkoutRequestDtoModel CreateWorkoutModel { get; set; }
     public GoalRequestDtoModel CreateGoalModel { get; set; }
-    public WorkoutTypeRequestDtoModel CreateTypeModel { get; set; }
+    public WorkoutTypeRequestDtoModel CreateTypeModel { get; set; } = new WorkoutTypeRequestDtoModel();
     public string UserRole { get; set; } = "";
     public string UserId { get; set; } = "";
     private bool isWorkoutsVisible;
@@ -133,6 +147,10 @@ else
     private bool IsWorkoutCreateVisible;
     private bool IsGoalCreateVisible;
     private bool IsTypeCreateVisible;
+    private bool isUserLoggedIn;
+    private bool isRegisterSucces = false;
+    private int counterRegister = 0;
+    private int counterLogin = 0;
 
 
     protected override async Task OnInitializedAsync()
@@ -155,13 +173,13 @@ else
             var token = await _LocalStorageService.GetItemAsync<string>("jwtToken");
             Types = await _workoutTypeService.GetWorkoutTypesAsync(token);
 
-            CreateWorkoutModel = new WorkoutRequestDtoModel { UserId = UserId };
+            CreateWorkoutModel = new WorkoutRequestDtoModel { UserId = UserId }; //userid's toekennen voor required field dtomodel
             CreateGoalModel = new GoalRequestDtoModel { UserId = UserId };
-            CreateTypeModel = new WorkoutTypeRequestDtoModel();
+
         }
         catch (Exception ex)
         {
-
+            counterLogin++;
             Console.WriteLine($"Login failed: {ex.Message}");
         }
     }
@@ -170,11 +188,13 @@ else
     {
         try
         {
+
             var result = await _userService.RegisterAsync(RegisterModel);
             isRegisterSucces = result.Success;
         }
         catch (Exception ex)
         {
+            counterRegister++;
             isRegisterSucces = false;
             Console.WriteLine($"Registration failed: {ex.Message}");
         }

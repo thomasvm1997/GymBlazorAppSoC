@@ -1,15 +1,85 @@
-﻿<div class="col-md-4 mb-3">
+﻿@inject IWorkoutTypeApiService _typeService
+@inject ILocalStorageService _localSotrageService
+@inject NavigationManager navigationManager
+<div class="col-md-4 mb-3">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">@Model.Name</h5>
             <p class="card-text">
                 <strong>Description:</strong> @Model.Description<br />
-                <strong>User:</strong> @Model.Difficulty
+                <strong>Difficulty:</strong> @Model.Difficulty
             </p>
+            <button class="btn btn-warning w-100 mb-2" @onclick="ShowUpdate">Update</button>
+            <button class="btn btn-danger w-100" @onclick="ShowDelete">Delete</button>
         </div>
     </div>
 </div>
+@if (isUpdateVisible)
+{
+    <UpdateTypeComponent Model="TypeToUpdate" OnUpdate="HandleUpdate" OnCancel="HideUpdate"/>
+}
+@if (isDeleteVisible)
+{
+    <DeleteTypeComponent Model="TypeToUpdate" OnDelete="HandleDelete" OnCancel="HideDelete"/>
+}
 
 @code {
     [Parameter] public WorkoutTypeResponseDtoModel Model { get; set; }
+    public  WorkoutTypeRequestDtoModel TypeToUpdate { get; set; }
+    private bool isUpdateVisible = false;
+    private bool isDeleteVisible = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        TypeToUpdate = new WorkoutTypeRequestDtoModel
+        {
+            Id = Model.Id,
+            Description = Model.Description,
+            Difficulty = Model.Difficulty,
+            Name = Model.Name
+
+
+        };
+
+    }
+
+    private void ShowUpdate()
+    {
+        HideDelete();
+        isUpdateVisible = true;
+
+    }
+
+    private void HideUpdate()
+    {
+        isUpdateVisible = false;
+    }
+
+    private void ShowDelete()
+    {
+        HideUpdate();
+        isDeleteVisible = true;
+
+    }
+
+    private void HideDelete()
+    {
+        isDeleteVisible = false;
+    }
+
+    private async Task HandleUpdate()
+    {
+        var token = await _localSotrageService.GetItemAsync<string>("jwtToken");
+        await _typeService.UpdateWorkoutTypeAsync(TypeToUpdate, token);
+        HideUpdate();
+        StateHasChanged();
+    }
+    private async Task HandleDelete()
+    {
+        var token = await _localSotrageService.GetItemAsync<string>("jwtToken");
+        await _typeService.DeleteWorkoutTypeAsync(TypeToUpdate.Id, token);
+        HideDelete();
+        navigationManager.NavigateTo("/");
+    }
 }

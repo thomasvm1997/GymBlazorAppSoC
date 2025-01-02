@@ -82,5 +82,19 @@ namespace Pri.EindOpdracht.ApiConsumer.WorkoutTypes
 
             return new ApiResult { Success = true };
         }
+
+        public async Task<ApiResult> DeleteWorkoutTypeAsync(int id, string token)
+        {
+            _workoutApiClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _workoutApiClient.DeleteAsync($"{id}");
+
+            if (response.IsSuccessStatusCode == false)
+            {
+                return new ApiResult { Success = false, ErrorMessage = "Could not delete object" };
+            }
+
+            return new ApiResult { Success = true };
+        }
     }
 }

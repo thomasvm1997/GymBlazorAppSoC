@@ -1,0 +1,46 @@
+﻿<div class="card">
+    <div class="card-header">Update Workout Type</div>
+    <div class="card-body">
+        <EditForm Model="Model" OnValidSubmit="HandleUpdate">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3">
+                <label for="Name" class="form-label">Name</label>
+                <InputText id="Name" class="form-control" @bind-Value="Model.Name" />
+                <ValidationMessage For="@(() => Model.Name)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <InputTextArea id="Description" class="form-control" @bind-Value="Model.Description" />
+                <ValidationMessage For="@(() => Model.Description)" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Difficulty" class="form-label">Difficulty</label>
+                <InputText id="Difficulty" class="form-control" @bind-Value="Model.Difficulty" />
+                <ValidationMessage For="@(() => Model.Difficulty)" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <button type="button" class="btn btn-secondary" @onclick="HandleCancel">Cancel</button>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter] public WorkoutTypeRequestDtoModel Model { get; set; }
+    [Parameter] public EventCallback OnUpdate { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+
+    private async Task HandleUpdate()
+    {
+        await OnUpdate.InvokeAsync();
+    }
+    private async Task HandleCancel()
+    {
+        await OnCancel.InvokeAsync();
+    }
+}

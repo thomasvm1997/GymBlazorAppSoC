@@ -1,8 +1,8 @@
-﻿<h3>Delete Goal</h3>
+﻿<h3>Delete Workout Type</h3>
 <div class="card">
     <div class="card-header">Confirm Deletion</div>
     <div class="card-body">
-        <p>Are you sure you want to delete the route <strong>This Goal</strong>?</p>
+        <p>Are you sure you want to delete the route <strong>@Model.Name</strong>?</p>
         <button class="btn btn-danger" @onclick="HandleDelete">Delete</button>
         <button class="btn btn-secondary" @onclick="HandleCancel">Cancel</button>
     </div>
@@ -10,7 +10,7 @@
 
 
 @code {
-    [Parameter] public GoalRequestDtoModel Model { get; set; }
+    [Parameter] public WorkoutTypeRequestDtoModel Model { get; set; }
     [Parameter] public EventCallback OnDelete { get; set; }
     [Parameter] public EventCallback OnCancel { get; set; }
 

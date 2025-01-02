@@ -15,5 +15,6 @@ namespace Pri.EindOpdracht.ApiConsumer.WorkoutTypes
         Task<WorkoutTypeResponseDtoModel[]> GetWorkoutTypesByUserIdAsync(string userId, string token);
         Task<ApiResult> CreateWorkoutTypeAsync(WorkoutTypeRequestDtoModel typeToCreate, string token);
         Task<ApiResult> UpdateWorkoutTypeAsync(WorkoutTypeRequestDtoModel typeToUpdate, string token);
+        Task<ApiResult> DeleteWorkoutTypeAsync(int id, string token);
     }
 }

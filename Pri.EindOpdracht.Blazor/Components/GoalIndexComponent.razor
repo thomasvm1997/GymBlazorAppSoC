@@ -9,7 +9,8 @@
             <h6 class="card-subtitle mb-2 text-muted">@Model.TargetDate</h6>
             <p class="card-text">
                 <strong>Description:</strong> @Model.Description<br />
-                <strong>User:</strong> @Model.UserName
+                <strong>User:</strong> @Model.UserName<br />
+                <strong>Achieved:</strong> @Model.Achieved<br />
             </p>
             <button class="btn btn-warning w-100 mb-2" @onclick="ShowUpdate">Update</button>
             <button class="btn btn-danger w-100" @onclick="ShowDelete">Delete</button>

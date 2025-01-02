@@ -32,7 +32,7 @@ internal class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(opt =>
         {
-            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Wokrout Api", Version = "v1" });
+            opt.SwaggerDoc("v1", new OpenApiInfo { Title = "Workout Api", Version = "v1" });
             opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 In = ParameterLocation.Header,

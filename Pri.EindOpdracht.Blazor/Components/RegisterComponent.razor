@@ -1,32 +1,50 @@
-﻿<EditForm Model="RegisterModel" OnValidSubmit="HandleSubmit">
+﻿<EditForm Model="RegisterModel" OnValidSubmit="HandleSubmit" class="container mt-5 p-4 border rounded shadow-sm">
     <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div>
-        <label>Username:</label>
-        <InputText @bind-Value="RegisterModel.Username" class="form-control" />
+    <ValidationSummary class="alert alert-danger" />
+
+    <h2 class="text-center mb-4">Register</h2>
+
+    <div class="form-group mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <InputText @bind-Value="RegisterModel.Username" id="username" class="form-control" placeholder="Enter your username" />
+        <ValidationMessage For="@(() => RegisterModel.Username)" class="text-danger" />
     </div>
-    <div>
-        <label>First Name:</label>
-        <InputText @bind-Value="RegisterModel.FirstName" class="form-control" />
+
+    <div class="form-group mb-3">
+        <label for="firstname" class="form-label">First Name:</label>
+        <InputText @bind-Value="RegisterModel.FirstName" id="firstname" class="form-control" placeholder="Enter your first name" />
+        <ValidationMessage For="@(() => RegisterModel.FirstName)" class="text-danger" />
     </div>
-    <div>
-        <label>Last Name:</label>
-        <InputText @bind-Value="RegisterModel.LastName" class="form-control" />
+
+    <div class="form-group mb-3">
+        <label for="lastname" class="form-label">Last Name:</label>
+        <InputText @bind-Value="RegisterModel.LastName" id="lastname" class="form-control" placeholder="Enter your last name" />
+        <ValidationMessage For="@(() => RegisterModel.LastName)" class="text-danger" />
     </div>
-    <div>
-        <label>Email:</label>
-        <InputText @bind-Value="RegisterModel.Email" type="email" class="form-control" />
+
+    <div class="form-group mb-3">
+        <label for="email" class="form-label">Email:</label>
+        <InputText @bind-Value="RegisterModel.Email" id="email" type="email" class="form-control" placeholder="Enter your email" />
+        <ValidationMessage For="@(() => RegisterModel.Email)" class="text-danger" />
     </div>
-    <div>
-        <label>Password:</label>
-        <InputText @bind-Value="RegisterModel.Password" type="password" class="form-control" />
+
+    <div class="form-group mb-3">
+        <label for="password" class="form-label">Password:</label>
+        <InputText @bind-Value="RegisterModel.Password" id="password" type="password" class="form-control" placeholder="Create a password" />
+        <ValidationMessage For="@(() => RegisterModel.Password)" class="text-danger" />
     </div>
-    <div>
-        <label>Birth Date:</label>
-        <InputDate @bind-Value="RegisterModel.BirthDate" class="form-control" />
+
+    <div class="form-group mb-3">
+        <label for="birthdate" class="form-label">Birth Date:</label>
+        <InputDate @bind-Value="RegisterModel.BirthDate" id="birthdate" class="form-control" />
+        <ValidationMessage For="@(() => RegisterModel.BirthDate)" class="text-danger" />
     </div>
-    <button type="submit" class="btn btn-success">Register</button>
+
+    <div class="d-grid">
+        <button type="submit" class="btn btn-success btn-block">Register</button>
+    </div>
 </EditForm>
+
 
 @code {
     [Parameter] public RegisterUserRequestDtoModel RegisterModel { get; set; }

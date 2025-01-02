@@ -14,5 +14,6 @@ namespace Pri.EindOpdracht.ApiConsumer.WorkoutTypes.Models
         [Required]
         [StringLength(10, MinimumLength = 3, ErrorMessage = "description must be between 3 and 10 characters.")]
         public string Difficulty { get; set; }
+        
     }
 }
