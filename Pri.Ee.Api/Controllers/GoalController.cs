@@ -52,7 +52,7 @@ namespace Pri.Ee.Api.Controllers
             var result = await _goalService.GetByIdAsync(goalId);
 
 
-            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je egen workouts kan bekijken
+            if (loggedInUserId != result.Data.UserId && loggedInUserRole == "Customer") //checksje uitvoeren om er voor te zorgen dat je geen workouts kan bekijken
             {                                                                           //van andere customers
                 return Unauthorized("You are not authorized to retreive goals from another user.");
             }

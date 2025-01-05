@@ -8,6 +8,7 @@ namespace Pri.Ee.Api.Dtos.Goals
         [Required]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "description must be between 3 and 100 characters.")]
         public string Description { get; set; }
+        [Required]
         [FutureDate]
         public DateTime TargetDate { get; set; }
         

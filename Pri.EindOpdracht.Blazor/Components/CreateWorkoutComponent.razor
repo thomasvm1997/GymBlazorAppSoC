@@ -4,7 +4,7 @@
         <EditForm Model="Model" OnValidSubmit="HandleCreate">
             <DataAnnotationsValidator />
             <div class="mb-3">
-                <label for="Duration" class="form-label">Duration</label>
+                <label for="Duration" class="form-label">Duration(minutes)</label>
                 <InputNumber id="Duration" class="form-control" @bind-Value="Model.Duration" />
                 <ValidationMessage For="@(() => Model.Duration)" />
             </div>
