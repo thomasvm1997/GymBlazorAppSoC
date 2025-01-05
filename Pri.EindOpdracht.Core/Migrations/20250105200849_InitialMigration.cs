@@ -241,9 +241,9 @@ namespace Pri.EindOpdracht.Core.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "BirthDate", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "1", 0, new DateTime(2025, 1, 5, 20, 55, 45, 907, DateTimeKind.Local).AddTicks(7412), "30b00985-d5f9-477b-a903-ced89b2458a5", "admin@example.com", false, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEAnrDdoAqBiq4ft8fFUzTx0okps4q7gZcBIxR+8vVXh2MOLg/yzaxBLDj1kAyhcSMA==", null, false, "48c3a48d-d0b6-41f6-9315-110f65fa8469", false, "admin" },
-                    { "2", 0, new DateTime(2025, 1, 5, 20, 55, 46, 68, DateTimeKind.Local).AddTicks(7281), "11554480-f54a-4186-b0da-e5d5bad294ad", "customer1@example.com", false, "Customer", "One", false, null, "CUSTOMER1@EXAMPLE.COM", "CUSTOMER1", "AQAAAAIAAYagAAAAEHGXvYpjuUgI4ljWBfMZKK0mKwgzVN/xvYPhUFZCSCP8q1BOfgeMvkxlrZu86EAd4w==", null, false, "50a822fc-eb12-48d0-95e5-95985817246a", false, "customer1" },
-                    { "3", 0, new DateTime(2025, 1, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(746), "eaa867ee-590f-4b78-807e-7efc8f003cdb", "customer2@example.com", false, "Customer", "Two", false, null, "CUSTOMER2@EXAMPLE.COM", "CUSTOMER2", "AQAAAAIAAYagAAAAEIS5sCt5lh83tnfdRJk71GYDeVSN/MjKIzJtRLaY9lqkff+wmpwLlNg8OoSYUL16Gg==", null, false, "9daebe27-2547-4b26-abb9-c1bd7f81e321", false, "customer2" }
+                    { "1", 0, new DateTime(2025, 1, 5, 21, 8, 48, 690, DateTimeKind.Local).AddTicks(8830), "6912bf01-4b5e-4881-a34c-c616c2ee08d4", "admin@example.com", false, "Admin", "User", false, null, "ADMIN@EXAMPLE.COM", "ADMIN", "AQAAAAIAAYagAAAAEByHOy7oqvoLtPfMVHeprW7Xp2dWD2IxqYZ0m40wYxalTnJBGuuK7yTJjqZpuqLRpQ==", null, false, "6e9a306f-9a95-42bf-958a-6caf002ffade", false, "admin" },
+                    { "2", 0, new DateTime(2025, 1, 5, 21, 8, 48, 784, DateTimeKind.Local).AddTicks(8634), "8a965189-1abe-4b54-9bbc-c9935cdf4cb1", "customer1@example.com", false, "Customer", "One", false, null, "CUSTOMER1@EXAMPLE.COM", "CUSTOMER1", "AQAAAAIAAYagAAAAELBYPGmzoyNkEbEc0H48EXTcSfKGkQqh98W6Cf7ie0OtnAeuXwRkM/UPU84E4S4T1Q==", null, false, "fe964ced-7dd8-4c99-aa91-ed8f6010e46c", false, "customer1" },
+                    { "3", 0, new DateTime(2025, 1, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(4219), "3b4ca75e-95e8-4cc9-ab9e-dbfe4a63d6e0", "customer2@example.com", false, "Customer", "Two", false, null, "CUSTOMER2@EXAMPLE.COM", "CUSTOMER2", "AQAAAAIAAYagAAAAEHA0P94IDh2isrp9oOlvzECkNTvdTk6Disd4F+rINeeutqlxEg3lEvu/M5QTlajn0g==", null, false, "de5178a4-0249-41b9-9b8f-3d870807b49c", false, "customer2" }
                 });
 
             migrationBuilder.InsertData(
@@ -271,12 +271,12 @@ namespace Pri.EindOpdracht.Core.Migrations
                 columns: new[] { "Id", "Achieved", "Description", "TargetDate", "UserId" },
                 values: new object[,]
                 {
-                    { 1, false, "Run 5 km in 30 minutes", new DateTime(2025, 2, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2039), "2" },
-                    { 2, false, "Lose 5 kg in 2 months", new DateTime(2025, 3, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2056), "2" },
-                    { 3, false, "Do 50 push-ups in one go", new DateTime(2025, 4, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2060), "2" },
-                    { 4, false, "Run 10 km in 60 minutes", new DateTime(2025, 2, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2064), "3" },
-                    { 5, false, "Gain 3 kg of muscle in 3 months", new DateTime(2025, 4, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2068), "3" },
-                    { 6, false, "Hold a plank for 5 minutes", new DateTime(2025, 3, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(2073), "3" }
+                    { 1, false, "Run 5 km in 30 minutes", new DateTime(2025, 2, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5257), "2" },
+                    { 2, false, "Lose 5 kg in 2 months", new DateTime(2025, 3, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5264), "2" },
+                    { 3, false, "Do 50 push-ups in one go", new DateTime(2025, 4, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5267), "2" },
+                    { 4, false, "Run 10 km in 60 minutes", new DateTime(2025, 2, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5270), "3" },
+                    { 5, false, "Gain 3 kg of muscle in 3 months", new DateTime(2025, 4, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5273), "3" },
+                    { 6, false, "Hold a plank for 5 minutes", new DateTime(2025, 3, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5276), "3" }
                 });
 
             migrationBuilder.InsertData(
@@ -284,16 +284,16 @@ namespace Pri.EindOpdracht.Core.Migrations
                 columns: new[] { "Id", "CaloriesBurned", "Date", "Duration", "UserId", "WorkoutTypeId" },
                 values: new object[,]
                 {
-                    { 1, 250, new DateTime(2025, 1, 4, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1580), 30, "2", 1 },
-                    { 2, 350, new DateTime(2025, 1, 3, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1598), 45, "2", 2 },
-                    { 3, 100, new DateTime(2025, 1, 2, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1602), 20, "2", 3 },
-                    { 4, 200, new DateTime(2025, 1, 4, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1606), 25, "3", 1 },
-                    { 5, 300, new DateTime(2025, 1, 3, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1610), 40, "3", 2 },
-                    { 6, 80, new DateTime(2025, 1, 2, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1626), 15, "3", 3 },
-                    { 7, 270, new DateTime(2025, 1, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1816), 35, "2", 1 },
-                    { 8, 400, new DateTime(2025, 1, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1822), 50, "2", 2 },
-                    { 9, 120, new DateTime(2025, 1, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1826), 25, "2", 3 },
-                    { 10, 500, new DateTime(2025, 1, 5, 20, 55, 46, 190, DateTimeKind.Local).AddTicks(1833), 60, "2", 1 }
+                    { 1, 250, new DateTime(2025, 1, 4, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5161), 30, "2", 1 },
+                    { 2, 350, new DateTime(2025, 1, 3, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5180), 45, "2", 2 },
+                    { 3, 100, new DateTime(2025, 1, 2, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5183), 20, "2", 3 },
+                    { 4, 200, new DateTime(2025, 1, 4, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5186), 25, "3", 1 },
+                    { 5, 300, new DateTime(2025, 1, 3, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5189), 40, "3", 2 },
+                    { 6, 80, new DateTime(2025, 1, 2, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5201), 15, "3", 3 },
+                    { 7, 270, new DateTime(2025, 1, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5204), 35, "2", 1 },
+                    { 8, 400, new DateTime(2025, 1, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5207), 50, "2", 2 },
+                    { 9, 120, new DateTime(2025, 1, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5209), 25, "2", 3 },
+                    { 10, 500, new DateTime(2025, 1, 5, 21, 8, 48, 867, DateTimeKind.Local).AddTicks(5213), 60, "2", 1 }
                 });
 
             migrationBuilder.CreateIndex(
